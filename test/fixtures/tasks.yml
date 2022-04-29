@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  category: one
+  category_id: 1
+  time_start: 2022-04-28 16:06:13
+  time_finish: 2022-04-28 16:06:13
+
+two:
+  category: two
+  category_id: 1
+  time_start: 2022-04-28 16:06:13
+  time_finish: 2022-04-28 16:06:13
