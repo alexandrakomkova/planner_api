@@ -19,17 +19,19 @@ ActiveRecord::Schema.define(version: 2022_04_29_121813) do
     t.string "title"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "user_id"
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 
   create_table "tasks", force: :cascade do |t|
     t.bigint "category_id", null: false
+    t.bigint "user_id", null:false
     t.time "time_start"
     t.time "time_finish"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "user_id"
     t.index ["category_id"], name: "index_tasks_on_category_id"
+    t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -40,4 +42,6 @@ ActiveRecord::Schema.define(version: 2022_04_29_121813) do
   end
 
   add_foreign_key "tasks", "categories"
+  add_foreign_key "tasks", "users"
+  add_foreign_key "categories", "users"
 end
