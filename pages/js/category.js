@@ -1,10 +1,12 @@
 cat_url = "http://localhost:3000/categories"
+get_all_cats();
 function add_cat(){
     let json_cat = {
-        "title": document.getElementById('cat_title').value.toString(),
-        "user_id" : sessionStorage.getItem("user_id")
+        "user_id" : getCookie("user_id").toString(),
+        "title": document.getElementById('cat_title').value.toString()
     }
     post(cat_url, json_cat)
+    get_all_cats();
 }
 
 function get_all_cats(){
@@ -14,10 +16,10 @@ function get_all_cats(){
 function get_cat(id){
     get(cat_url+"/"+id, 'result_book')
 }
-// function delete_cat() {
-//     let genre_id = document.getElementById('genre_id').value.toString();
-//     delete_instance(cat_url);
-// }
+function delete_cat() {
+    let genre_id = document.getElementById('genre_id').value.toString();
+    delete_instance(cat_url+"/"+id);
+}
 
 // function update_cat(){
 //     let json_genre = {
@@ -26,3 +28,14 @@ function get_cat(id){
 //     let genre_id = document.getElementById('genre_id').value.toString();
 //     put(form_instance_url(cat_url, genre_id),json_genre);
 // }
+
+function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+    return null;
+}

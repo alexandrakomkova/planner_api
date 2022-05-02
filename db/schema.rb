@@ -16,16 +16,16 @@ ActiveRecord::Schema.define(version: 2022_04_29_121813) do
   enable_extension "plpgsql"
 
   create_table "categories", force: :cascade do |t|
-    t.string "title"
+    t.string "title", unique: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id"
-    t.index ["user_id"], name: "index_tasks_on_user_id"
+    t.index ["user_id"], name: "index_categoies_on_user_id"
   end
 
   create_table "tasks", force: :cascade do |t|
     t.bigint "category_id", null: false
-    t.bigint "user_id", null:false
+    t.bigint "user_id", null: false
     t.time "time_start"
     t.time "time_finish"
     t.datetime "created_at", precision: 6, null: false

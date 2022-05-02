@@ -20,8 +20,8 @@ class CategoriesController < ApplicationController
     if @category.save
       render json: @category, status: :created, location: @category
     else
-      render error: { error: 'Unable to create Category.' }, status: 400
-      # render json: @category.errors, status: :unprocessable_entity
+      # render error: { error: 'Unable to create Category.' }, status: 400
+      render json: @category.errors, status: :unprocessable_entity
     end
   end
 
@@ -57,6 +57,7 @@ class CategoriesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def category_params
-    params.require(:category).permit(:user_id, :title)
+    # params.require(:category).permit(:user_id, :title)
+    params.permit(:user_id, :title)
   end
 end

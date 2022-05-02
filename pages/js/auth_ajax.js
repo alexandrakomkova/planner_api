@@ -31,34 +31,29 @@ function post_auth(url, json_data) {
         error: function (request, error) {
             error_alert(error)
         },
-        success: function (jqXHR, response) {
-            if(jqXHR.status == 401){
+        success: function (response) {
+            if(response.status === 401){
                 alert("Wrong email or password.. :(");
             }
             else{
                 // window.location.href = "http://localhost:3000/";
-                sessionStorage.setItem("user_id", jqXHR.responseText);
-                console.log(JSON.parse(jqXHR.responseText)['status']);
-                //window.location.href = "http://localhost:3000/";
-                // get_auth("http://localhost:3000/", )
-                //data.user_id
+
+                console.log(response['user']['id']);
+                // let date = new Date(Date.now() + 86400e3);
+                // document.cookie = "user_id="+response['user']['id']+"; path=/; expires="+ date + "; samesite=lax; secure";
+                setCookie("user_id", response['user']['id'], 1)
+                window.location.href = "http://localhost:3000/";
             }
         }
     });
 }
 
-function get_auth(url, user_id) {
-    $.ajax({
-        type: 'get',
-        cache: false,
-        url: url,
-        dataType: 'json',
-        error: function (request, error) {
-            error_alert(error)
-        },
-        success: function () {
-            sessionStorage.setItem("user_id", user_id);
-        }
-    });
-
+function setCookie(name,value,days) {
+    var expires = "";
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days*24*60*60*1000));
+        expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "")  + expires + "; path=/; samesite=lax; secure";
 }
