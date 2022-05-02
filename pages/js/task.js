@@ -1,14 +1,39 @@
-task_url = "http://localhost:3000/categories"
+task_url = "http://localhost:3000/tasks"
+cat_url = "http://localhost:3000/categories"
+add_values_to_select();
+get_all_tasks();
+
 function add_task(){
     let json_task = {
+        "user_id" : getCookie("user_id").toString(),
         "category_id": document.getElementById('task_cat').value.toString(),
-        "time_start": document.getElementById('task_time_start').value.toString(),
-        "time_finish": document.getElementById('task_time_finish').value.toString(),
-        "user_id" : sessionStorage.getItem("user_id")
+        "time_start": document.getElementById('time_start').value.toString(),
+        "time_finish": document.getElementById('time_finish').value.toString(),
     }
     post(task_url, json_task)
 }
 
 function get_all_tasks(){
     get(task_url, 'result_task')
+}
+
+function add_values_to_select(){
+    $.ajax({
+        type: 'get',
+        cache: false,
+        url: cat_url,
+        dataType: 'json',
+        error: function (request, error) {
+            error_alert(error)
+        },
+        success: function (data) {
+            for(var i=0; i < data.length; i++)
+            {
+                var select = document.getElementById('task_cat');
+                select.options[select.options.length] = new Option(data[i]['title'], data[i]['id']);
+            }
+
+        }
+    });
+    //document.getElementById('task_cat')
 }

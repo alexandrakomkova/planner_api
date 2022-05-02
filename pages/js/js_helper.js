@@ -42,17 +42,22 @@ function choose_table(data, result_block) {
 }
 
 function draw_row_cat(rowData, result_block) {
+    console.log(result_block);
     var row = $("<tr />")
     $(result_block).append(row);
     row.append($("<td>" + rowData.title + "</td>"));
     row.append($("<button id='delete_cat' onClick='delete_cat();'>delete</button>"));
+    //row.append($("<button id='delete_cat' onClick='delete_cat();'>delete</button>"));
+
     row.append($("<td>" + rowData.id + "</td>"));
+
 }
 
 function draw_row_task(rowData, result_block) {
     var row = $("<tr />")
     $(result_block).append(row);
-    row.append($("<td>" + rowData.category_id + "</td>"));
+    row.append($("<td>" + get_cat(rowData.category_id) + "</td>"));
     row.append($("<td>" + rowData.time_start + "</td>"));
     row.append($("<td>" + rowData.time_finish + "</td>"));
 }
+

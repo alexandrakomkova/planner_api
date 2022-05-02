@@ -14,11 +14,27 @@ function get_all_cats(){
 }
 
 function get_cat(id){
-    get(cat_url+"/"+id, 'result_book')
+   // get(cat_url+"/"+id, 'result_book')
+    var d = [];
+    $.ajax({
+        type: 'get',
+        cache: false,
+        url: cat_url+"/"+id,
+        dataType: 'json',
+        error: function (request, error) {
+            error_alert(error)
+        },
+        success: function (data) {
+            d.push(data['title'])
+
+        }
+    });
+    alert(d[id]);
 }
 function delete_cat() {
-    let genre_id = document.getElementById('genre_id').value.toString();
-    delete_instance(cat_url+"/"+id);
+    alert($(this).id);
+    // let genre_id = document.getElementById('genre_id').value.toString();
+    // delete_instance(cat_url+"/"+id);
 }
 
 // function update_cat(){
