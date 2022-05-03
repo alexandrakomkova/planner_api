@@ -1,11 +1,8 @@
-set_name_in_header();
+
 function error_alert(error){
     alert(" Can't do because: " + error.toString());
 }
 
-function set_name_in_header(){
-    document.getElementById("hello_account").innerText+=getCookie("user_email").toString();
-}
 
 function check_data_type(data, result_block) {
 
@@ -104,8 +101,8 @@ function logout(){
         },
         success: function (response) {
             if(response.status === 200 && response['logged_out']){
-                setCookie("user_id", getCookie('user_id').toString(), -1)
-                setCookie("user_email",  getCookie('user_email').toString(), -1)
+                setCookie('user_id', getCookie('user_id').toString(), -1)
+                setCookie('user_email',  getCookie('user_email').toString(), -1)
                 window.location.href = "http://localhost:63342/planner_api/pages/html/auth.html?_ijt=4p97735jdrvbrc5n6t7hkjd6li&_ij_reload=RELOAD_ON_SAVE";
             }
         }

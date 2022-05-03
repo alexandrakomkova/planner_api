@@ -1,4 +1,5 @@
 cat_url = "http://localhost:3000/categories"
+set_name_in_header();
 get_all_cats();
 function add_cat(){
     let json_cat = {
@@ -10,7 +11,7 @@ function add_cat(){
 }
 
 function get_all_cats(){
-    get(cat_url+"_user/"+getCookie("user_id").toString(), 'result_cat')
+    get(cat_url+"_user/"+getCookie('user_id').toString(), 'result_cat')
 }
 
 function get_cat(id){
@@ -44,3 +45,6 @@ function delete_cat() {
 //     put(form_instance_url(cat_url, genre_id),json_genre);
 // }
 
+function set_name_in_header(){
+    document.getElementById("hello_account").innerText+=getCookie("user_email").toString();
+}
