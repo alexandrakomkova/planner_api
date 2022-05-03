@@ -1,6 +1,6 @@
 task_url = "http://localhost:3000/tasks"
 cat_url = "http://localhost:3000/categories"
-add_values_to_select();
+add_values_to_select('task_cat');
 get_all_tasks();
 
 function add_task(){
@@ -14,10 +14,10 @@ function add_task(){
 }
 
 function get_all_tasks(){
-    get(task_url, 'result_task')
+    get(task_url+"_user/"+getCookie("user_id").toString(), 'result_task')
 }
 
-function add_values_to_select(){
+function add_values_to_select(select_id){
     $.ajax({
         type: 'get',
         cache: false,
@@ -29,11 +29,11 @@ function add_values_to_select(){
         success: function (data) {
             for(var i=0; i < data.length; i++)
             {
-                var select = document.getElementById('task_cat');
+                var select = document.getElementById(select_id);
                 select.options[select.options.length] = new Option(data[i]['title'], data[i]['id']);
             }
 
         }
     });
-    //document.getElementById('task_cat')
+
 }

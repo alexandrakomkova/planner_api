@@ -13,6 +13,13 @@ class TasksController < ApplicationController
     render json: @task
   end
 
+  # GET /tasks_user/1
+  def get_all_by_id
+    @tasks = Task.where(['user_id = ?', params[:user_id]])
+
+    render json: @tasks
+  end
+
   # POST /tasks
   def create
     @task = Task.new(task_params)

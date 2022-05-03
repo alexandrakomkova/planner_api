@@ -13,6 +13,13 @@ class CategoriesController < ApplicationController
     render json: @category
   end
 
+  # GET /categories_user/1
+  def get_all_by_id
+    @categories = Category.where(['user_id = ?', params[:user_id]])
+
+    render json: @categories
+  end
+
   # POST /categories
   def create
     @category = Category.new(category_params)

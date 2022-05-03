@@ -36,24 +36,17 @@ function post_auth(url, json_data) {
                 alert("Wrong email or password.. :(");
             }
             else{
-                // window.location.href = "http://localhost:3000/";
-
                 console.log(response['user']['id']);
-                // let date = new Date(Date.now() + 86400e3);
-                // document.cookie = "user_id="+response['user']['id']+"; path=/; expires="+ date + "; samesite=lax; secure";
                 setCookie("user_id", response['user']['id'], 1)
-                window.location.href = "http://localhost:3000/";
+                setCookie("user_email", response['user']['email'], 1)
+                if(getCookie('user_id').toString()) {
+                    window.location.href = "http://localhost:63342/planner_api/pages/html/index.html?_ijt=bip9fc3fqi8mi7habl14phb6c6&_ij_reload=RELOAD_ON_SAVE";
+                }else{
+                    window.location.href = "http://localhost:63342/planner_api/pages/html/auth.html?_ijt=4p97735jdrvbrc5n6t7hkjd6li&_ij_reload=RELOAD_ON_SAVE";
+                }
             }
         }
     });
 }
 
-function setCookie(name,value,days) {
-    var expires = "";
-    if (days) {
-        var date = new Date();
-        date.setTime(date.getTime() + (days*24*60*60*1000));
-        expires = "; expires=" + date.toUTCString();
-    }
-    document.cookie = name + "=" + (value || "")  + expires + "; path=/; samesite=lax; secure";
-}
+

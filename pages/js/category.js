@@ -10,26 +10,25 @@ function add_cat(){
 }
 
 function get_all_cats(){
-    get(cat_url, 'result_cat')
+    get(cat_url+"_user/"+getCookie("user_id").toString(), 'result_cat')
 }
 
 function get_cat(id){
-   // get(cat_url+"/"+id, 'result_book')
-    var d = [];
+    add_values_to_select(`cat_select_${id}`);
     $.ajax({
         type: 'get',
         cache: false,
         url: cat_url+"/"+id,
         dataType: 'json',
+        async: true,
         error: function (request, error) {
             error_alert(error)
         },
         success: function (data) {
-            d.push(data['title'])
-
+            document.getElementById(`cat_select_${id}`).value = data['id'];
         }
+
     });
-    alert(d[id]);
 }
 function delete_cat() {
     alert($(this).id);
@@ -45,13 +44,3 @@ function delete_cat() {
 //     put(form_instance_url(cat_url, genre_id),json_genre);
 // }
 
-function getCookie(name) {
-    var nameEQ = name + "=";
-    var ca = document.cookie.split(';');
-    for(var i=0;i < ca.length;i++) {
-        var c = ca[i];
-        while (c.charAt(0)==' ') c = c.substring(1,c.length);
-        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
-    }
-    return null;
-}
